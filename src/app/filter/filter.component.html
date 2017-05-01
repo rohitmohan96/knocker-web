@@ -1,0 +1,45 @@
+<div class="container">
+  <div class="col-md-3"><h2>Filter</h2>
+    <div class="btn-group" dropdown>
+      <button dropdownToggle type="button" class="btn btn-default dropdown-toggle">
+        {{selectedCategory}} <span class="caret"></span>
+      </button>
+      <ul *dropdownMenu class="dropdown-menu" role="menu">
+        <li role="menuitem" *ngFor="let cat of categories"><a class="dropdown-item" (click)="selectCategory(cat)">{{cat}}</a></li>
+       </ul>
+    </div>
+  </div>
+
+
+  <div class="col-md-9">
+    <div class="panel panel-primary">
+      <div class="panel-heading">Jobs</div>
+
+      <ul class="list-group">
+
+        <!-- list object-->
+        <li class="list-group-item " *ngFor="let job of (jobs | async)?._items">
+          <div class="media">
+            <div class="media-left">
+              <img class="media-object imgsize"
+                   src="https://upload.wikimedia.org/wikipedia/commons/9/95/Infosys_logo.svg" alt="company">
+            </div>
+            <div class="media-body">
+              <a href="#">
+                <h4 class="media-heading">{{job.title}}</h4>
+              </a>
+              <p>Location : {{job.location}}</p>
+              <p>
+                <span class="label label-primary filtersize" [style.background]=" map[keyword] "
+                      *ngFor="let keyword of job.keywords">{{keyword}}</span>
+              </p>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <pagination [totalItems]="totalItems" itemsPerPage="25" [(ngModel)]="currentPage"
+                [maxSize]="maxSize" class="pull-right pagination-sm"
+                [boundaryLinks]="true" (pageChanged)="pageChanged($event)"></pagination>
+  </div>
+</div>
