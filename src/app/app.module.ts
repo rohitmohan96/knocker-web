@@ -9,7 +9,8 @@ import {FilterComponent} from './filter/filter.component';
 import {HomeComponent} from './home/home.component';
 import {PaginationModule} from 'ngx-bootstrap/pagination';
 import {Route, RouterModule} from '@angular/router';
-import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import {BsDropdownModule} from 'ngx-bootstrap/dropdown';
+import {TypeaheadModule} from 'ngx-bootstrap/typeahead';
 
 const config = {
   apiKey: ***REMOVED***,
@@ -54,7 +55,8 @@ const appRoutes: Route[] = [
     AngularFireModule.initializeApp(config, firebaseAuthConfig),
     PaginationModule.forRoot(),
     RouterModule.forRoot(appRoutes),
-    BsDropdownModule.forRoot()
+    BsDropdownModule.forRoot(),
+    TypeaheadModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

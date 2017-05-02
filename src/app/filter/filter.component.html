@@ -1,12 +1,46 @@
 <div class="container">
-  <div class="col-md-3"><h2>Filter</h2>
+  <div class="col-md-3">
+    <h2>Filter</h2>
     <div class="btn-group" dropdown>
       <button dropdownToggle type="button" class="btn btn-default dropdown-toggle">
         {{selectedCategory}} <span class="caret"></span>
       </button>
       <ul *dropdownMenu class="dropdown-menu" role="menu">
-        <li role="menuitem" *ngFor="let cat of categories"><a class="dropdown-item" (click)="selectCategory(cat)">{{cat}}</a></li>
-       </ul>
+        <li role="menuitem" *ngFor="let cat of categories"><a class="dropdown-item" (click)="selectCategory(cat)">{{cat}}</a>
+        </li>
+      </ul>
+    </div>
+    <div>
+      <input [(ngModel)]="selected"
+             [typeahead]="keywords"
+             placeholder="Enter Keyword"
+             class="form-control typeaheadstyle"
+             (typeaheadOnSelect)="newKeyword()"
+      />
+    </div>
+
+    <div *ngFor="let key of enteredKeywords; let i = index;">
+      <span class="label label-primary filtersize">{{key}} <span
+        class="glyphicon glyphicon-remove" (click)="removeKeyword(i)"></span></span>
+    </div>
+    <div>
+      <input [(ngModel)]="location"
+             placeholder="Enter Location"
+             class="form-control typeaheadstyle" (keyup.enter)="newLocation()">
+    </div>
+    <div *ngFor="let loc of enteredLocations; let i = index;">
+      <span class="label label-success">{{loc}} <span class="glyphicon glyphicon-remove"
+                                                      (click)="removeLocation(i)"></span></span>
+    </div>
+    <div>
+      <input [(ngModel)]="experience" type="number"
+             placeholder="Experience in Years"
+             class="form-control typeaheadstyle">
+    </div>
+
+    <div>
+      <button class=" btn btn-primary btn-chocolate" (click)="filter()">Filter</button>
+
     </div>
   </div>
 

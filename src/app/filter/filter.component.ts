@@ -8,7 +8,12 @@ import {JobService} from '../job.service';
   providers: [JobService]
 })
 export class FilterComponent implements OnInit {
+  enteredKeywords: string[] = [];
   selectedCategory: string = 'Category';
+
+  selected = '';
+  location = '';
+  enteredLocations: string[] = [];
 
   jobs: Promise<any>;
 
@@ -25,8 +30,22 @@ export class FilterComponent implements OnInit {
     'C#': 'black'
   };
 
+  keywords = [
+    'C',
+    'C++',
+    'LINUX',
+    'PYTHON',
+    'JAVA',
+    'SQL',
+    'JAVASCRIPT',
+    'CSS',
+    'HTML',
+    'C#'
+  ];
+
   categories = ['ENGINEER', 'CONSULTANT', 'MANAGER', 'DEVELOPER', 'EXECUTIVE'];
 
+  experience: number;
   currentPage = 1;
   maxSize = 5;
   numPages = 0;
@@ -48,6 +67,30 @@ export class FilterComponent implements OnInit {
   selectCategory(cat) {
     this.selectedCategory = cat;
     console.log(cat);
+  }
+
+  filter() {
+    this.jobs = this.jobservice.filterJobs(1, this.enteredLocations, this.enteredKeywords, this.experience, this.selectedCategory);
+    this.jobs.then(jobs => this.totalItems = jobs._meta.total);
+
+  }
+
+  newKeyword() {
+    this.enteredKeywords.push(this.selected);
+    this.selected = '';
+  }
+
+  removeKeyword(index) {
+    this.enteredKeywords.splice(index, 1);
+  }
+
+  newLocation() {
+    this.enteredLocations.push(this.location);
+    this.location = '';
+  }
+
+  removeLocation(index) {
+    this.enteredLocations.splice(index, 1);
   }
 }
 
