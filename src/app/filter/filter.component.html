@@ -1,6 +1,8 @@
 <div class="container">
-  <div class="col-md-3">
+
+  <div class="col-md-3 fixed-filter">
     <h2>Filter</h2>
+    <label>Category: </label>
     <div class="btn-group" dropdown>
       <button dropdownToggle type="button" class="btn btn-default dropdown-toggle">
         {{selectedCategory}} <span class="caret"></span>
@@ -19,15 +21,17 @@
       />
     </div>
 
-    <div *ngFor="let key of enteredKeywords; let i = index;">
-      <span class="label label-primary filtersize">{{key}} <span
+    <span *ngFor="let key of enteredKeywords; let i = index;">
+      <span class="label label-primary">{{key}} <span
         class="glyphicon glyphicon-remove" (click)="removeKeyword(i)"></span></span>
-    </div>
+    </span>
+
     <div>
       <input [(ngModel)]="location"
              placeholder="Enter Location"
              class="form-control typeaheadstyle" (keyup.enter)="newLocation()">
     </div>
+
     <div *ngFor="let loc of enteredLocations; let i = index;">
       <span class="label label-success">{{loc}} <span class="glyphicon glyphicon-remove"
                                                       (click)="removeLocation(i)"></span></span>
@@ -44,36 +48,18 @@
     </div>
   </div>
 
-
   <div class="col-md-9">
     <div class="panel panel-primary">
       <div class="panel-heading">Jobs</div>
+      <div class="panel-body">
+        <em>Total no. of jobs: {{totalItems}}</em>
+      </div>
 
-      <ul class="list-group">
-
-        <!-- list object-->
-        <li class="list-group-item " *ngFor="let job of (jobs | async)?._items">
-          <div class="media">
-            <div class="media-left">
-              <img class="media-object imgsize"
-                   src="https://upload.wikimedia.org/wikipedia/commons/9/95/Infosys_logo.svg" alt="company">
-            </div>
-            <div class="media-body">
-              <a href="#">
-                <h4 class="media-heading">{{job.title}}</h4>
-              </a>
-              <p>Location : {{job.location}}</p>
-              <p>
-                <span class="label label-primary filtersize" [style.background]=" map[keyword] "
-                      *ngFor="let keyword of job.keywords">{{keyword}}</span>
-              </p>
-            </div>
-          </div>
-        </li>
-      </ul>
+      <app-jobs [jobs]="jobs" [crawlId]="crawlId"></app-jobs>
     </div>
+
     <pagination [totalItems]="totalItems" itemsPerPage="25" [(ngModel)]="currentPage"
                 [maxSize]="maxSize" class="pull-right pagination-sm"
-                [boundaryLinks]="true" (pageChanged)="pageChanged($event)"></pagination>
+                [boundaryLinks]="true" (pageChanged)="filterJobs($event.page)"></pagination>
   </div>
 </div>

@@ -11,6 +11,7 @@ import {PaginationModule} from 'ngx-bootstrap/pagination';
 import {Route, RouterModule} from '@angular/router';
 import {BsDropdownModule} from 'ngx-bootstrap/dropdown';
 import {TypeaheadModule} from 'ngx-bootstrap/typeahead';
+import { JobsComponent } from './jobs/jobs.component';
 
 const config = {
   apiKey: 'AIzaSyB5BLz_gBdc2RTpLxngsSlTuxiVk5r6sBo',
@@ -46,7 +47,8 @@ const appRoutes: Route[] = [
   declarations: [
     AppComponent,
     FilterComponent,
-    HomeComponent
+    HomeComponent,
+    JobsComponent
   ],
   imports: [
     BrowserModule,
