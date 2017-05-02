@@ -9,8 +9,8 @@ export class JobService {
   constructor(private http: Http) {
   }
 
-  filterJobs(page: number = 1, locations?: string[], experience?: number, category?: string) {
-    let where = {};
+  filterJobs(page: number = 1, locations?: string[], keywords?: string[], experience?: number, category?: string) {
+    const where = {};
     let projection;
     let sort;
 
@@ -20,7 +20,7 @@ export class JobService {
       };
       projection = {
         score: {
-          $meta: "textScore"
+          $meta: 'textScore'
         }
       };
 
