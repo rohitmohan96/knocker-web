@@ -5,7 +5,7 @@
     <div class="media">
       <div class="media-left">
         <img class="media-object imgsize"
-             src="https://upload.wikimedia.org/wikipedia/commons/9/95/Infosys_logo.svg" alt="company">
+             [src]="getImage(job.url)" alt="company">
       </div>
       <div class="media-body">
         <span *ngIf="job.crawl_id < crawlId" class="label label-danger pull-right">Outdated</span>
