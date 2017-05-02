@@ -8,27 +8,14 @@ import {JobService} from '../job.service';
   providers: [JobService]
 })
 export class FilterComponent implements OnInit {
-  enteredKeywords: string[] = [];
-  selectedCategory: string = 'Category';
+  enteredKeywords: string[];
+  selectedCategory: string;
 
   selected = '';
   location = '';
-  enteredLocations: string[] = [];
+  enteredLocations: string[];
 
   jobs: Promise<any>;
-
-  map = {
-    'C': 'red',
-    'C++': 'blue',
-    'LINUX': 'black',
-    'PYTHON': 'orange',
-    'JAVA': 'green',
-    'SQL': 'chocolate',
-    'JAVASCRIPT': 'grey',
-    'CSS': 'brown',
-    'HTML': 'black',
-    'C#': 'black'
-  };
 
   keywords = [
     'C',
@@ -48,20 +35,19 @@ export class FilterComponent implements OnInit {
   experience: number;
   currentPage = 1;
   maxSize = 5;
-  numPages = 0;
   totalItems: number;
 
-  constructor(private jobservice: JobService) {
+  crawlId: number;
+
+  constructor(private jobService: JobService) {
   }
 
   ngOnInit() {
-    this.jobs = this.jobservice.filterJobs();
-    this.jobs.then(jobs => this.totalItems = jobs._meta.total);
-  }
+    this.jobService
+      .getCrawlId()
+      .then((crawlId) => this.crawlId = crawlId);
 
-  pageChanged(event) {
-    this.jobs = this.jobservice.filterJobs(event.page);
-    this.jobs.then(jobs => this.totalItems = jobs._meta.total);
+    this.filterJobs();
   }
 
   selectCategory(cat) {
@@ -70,12 +56,19 @@ export class FilterComponent implements OnInit {
   }
 
   filter() {
-    this.jobs = this.jobservice.filterJobs(1, this.enteredLocations, this.enteredKeywords, this.experience, this.selectedCategory);
-    this.jobs.then(jobs => this.totalItems = jobs._meta.total);
+    this.currentPage = 1;
+    this.filterJobs();
+  }
 
+  filterJobs(page: number = 1) {
+    this.jobs = this.jobService.filterJobs(page, this.enteredLocations, this.enteredKeywords, this.experience, this.selectedCategory);
+    this.jobs.then(jobs => this.totalItems = jobs._meta.total);
   }
 
   newKeyword() {
+    if (!this.enteredKeywords) {
+      this.enteredKeywords = [];
+    }
     this.enteredKeywords.push(this.selected);
     this.selected = '';
   }
@@ -85,6 +78,9 @@ export class FilterComponent implements OnInit {
   }
 
   newLocation() {
+    if (!this.enteredLocations) {
+      this.enteredLocations = [];
+    }
     this.enteredLocations.push(this.location);
     this.location = '';
   }

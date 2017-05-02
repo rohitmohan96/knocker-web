@@ -4,13 +4,13 @@ import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class JobService {
-  url = 'http://localhost:5000/Jobs';
+  url = 'http://localhost:5000';
 
   constructor(private http: Http) {
   }
 
   filterJobs(page: number = 1, locations?: string[], keywords?: string[], experience?: number, category?: string) {
-    const where = {};
+    let where = {};
     let projection;
     let sort;
 
@@ -27,6 +27,12 @@ export class JobService {
       sort = '[("score", {"$meta": "textScore"})]';
     }
 
+    if (keywords) {
+      where['keywords'] = {
+        $all: keywords
+      };
+    }
+
     if (experience) {
       where['experience'] = {
         $in: [experience - 1, experience, experience + 1]
@@ -39,15 +45,21 @@ export class JobService {
 
 
     return this.http
-      .get(this.url, {
+      .get(this.url + '/Jobs', {
         search: {
           where: where,
+          projection: projection,
+          sort: sort,
           page: page
         }
       })
       .toPromise()
-      .then(res => {
-        return res.json();
-      });
+      .then(res => res.json());
+  }
+
+  getCrawlId(): Promise<number> {
+    return this.http.get(this.url + '/crawl')
+      .toPromise()
+      .then(res => res.json()._items[0].crawl_id);
   }
 }
