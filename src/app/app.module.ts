@@ -4,7 +4,7 @@ import {FormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
 
 import {AppComponent} from './app.component';
-import {AngularFireModule, AuthMethods, AuthProviders} from 'angularfire2';
+import {AngularFireModule} from 'angularfire2';
 import {FilterComponent} from './filter/filter.component';
 import {HomeComponent} from './home/home.component';
 import {PaginationModule} from 'ngx-bootstrap/pagination';
@@ -13,6 +13,7 @@ import {BsDropdownModule} from 'ngx-bootstrap/dropdown';
 import {TypeaheadModule} from 'ngx-bootstrap/typeahead';
 import { JobsComponent } from './jobs/jobs.component';
 import { JobDetailsComponent } from './job-details/job-details.component';
+import {AngularFireAuthModule} from 'angularfire2/auth';
 
 const config = {
   apiKey: 'AIzaSyB5BLz_gBdc2RTpLxngsSlTuxiVk5r6sBo',
@@ -21,11 +22,6 @@ const config = {
   projectId: 'knocker-3a330',
   storageBucket: 'knocker-3a330.appspot.com',
   messagingSenderId: '726197767436'
-};
-
-const firebaseAuthConfig = {
-  provider: AuthProviders.Google,
-  method: AuthMethods.Popup
 };
 
 const appRoutes: Route[] = [
@@ -60,7 +56,8 @@ const appRoutes: Route[] = [
     BrowserModule,
     FormsModule,
     HttpModule,
-    AngularFireModule.initializeApp(config, firebaseAuthConfig),
+    AngularFireModule.initializeApp(config),
+    AngularFireAuthModule,
     PaginationModule.forRoot(),
     RouterModule.forRoot(appRoutes),
     BsDropdownModule.forRoot(),
