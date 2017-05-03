@@ -12,6 +12,7 @@ import {Route, RouterModule} from '@angular/router';
 import {BsDropdownModule} from 'ngx-bootstrap/dropdown';
 import {TypeaheadModule} from 'ngx-bootstrap/typeahead';
 import { JobsComponent } from './jobs/jobs.component';
+import { JobDetailsComponent } from './job-details/job-details.component';
 
 const config = {
   apiKey: 'AIzaSyB5BLz_gBdc2RTpLxngsSlTuxiVk5r6sBo',
@@ -37,6 +38,10 @@ const appRoutes: Route[] = [
     component: FilterComponent
   },
   {
+    path: 'job/:id',
+    component: JobDetailsComponent
+  },
+  {
     path: '',
     redirectTo: 'home',
     pathMatch: 'full'
@@ -48,7 +53,8 @@ const appRoutes: Route[] = [
     AppComponent,
     FilterComponent,
     HomeComponent,
-    JobsComponent
+    JobsComponent,
+    JobDetailsComponent
   ],
   imports: [
     BrowserModule,
