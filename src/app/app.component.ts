@@ -1,31 +1,28 @@
 import {Component, OnInit} from '@angular/core';
-import {AngularFire, FirebaseAuthState} from 'angularfire2'
+import {AngularFireAuth} from 'angularfire2/auth';
+import * as firebase from 'firebase/app';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  user;
+  user: firebase.User;
 
   ngOnInit(): void {
-    this.af.auth.subscribe((auth) => {
-      if (auth) {
-        console.log(auth);
-        this.user = auth.auth;
-      } else {
-        this.user = null;
-      }
-    });
+    this.afAuth.authState.subscribe(user => this.user = user);
   }
 
-  constructor(private af: AngularFire) {
+  constructor(private afAuth: AngularFireAuth) {
 
   }
+
   logout() {
-    this.af.auth.logout();
+    this.afAuth.auth.signOut();
   }
+
   login() {
-    this.af.auth.login();
+    this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
   }
 }
