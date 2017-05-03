@@ -9,10 +9,12 @@
       </div>
       <div class="media-body">
         <span *ngIf="job.crawl_id < crawlId" class="label label-danger pull-right">Outdated</span>
-        <a href="#">
+        <a href="">
           <h4 class="media-heading">{{job.title}}</h4>
         </a>
-        <p>Location: {{job.location}}</p>
+        <p><span class="glyphicon glyphicon-map-marker"></span> {{job.location}}</p>
+        <p><span class="glyphicon glyphicon-briefcase"></span> {{job.experience}}+ years</p>
+
         <span *ngFor="let keyword of job.keywords">
                 <span class="label label-primary"
                       [style.background]="map[keyword]">{{keyword}}</span>
