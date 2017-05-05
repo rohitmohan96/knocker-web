@@ -10,6 +10,7 @@ import {JobService} from '../job.service';
 export class FilterComponent implements OnInit {
   enteredKeywords: string[];
   selectedCategory: string;
+  selectedCompany: string;
 
   selected = '';
   location = '';
@@ -28,6 +29,14 @@ export class FilterComponent implements OnInit {
     'CSS',
     'HTML',
     'C#'
+  ];
+
+  companies = [
+    'Infosys Ltd.',
+    'SAP Software Solutions',
+    'Akamai Technologies',
+    'Capgemini',
+    'Cisco Systems, Inc.'
   ];
 
   categories = ['ENGINEER', 'CONSULTANT', 'MANAGER', 'DEVELOPER', 'EXECUTIVE'];
@@ -55,13 +64,23 @@ export class FilterComponent implements OnInit {
     console.log(cat);
   }
 
+  selectCompany(comp) {
+    this.selectedCompany = comp;
+  }
+
   filter() {
     this.currentPage = 1;
     this.filterJobs();
   }
 
   filterJobs(page: number = 1) {
-    this.jobs = this.jobService.filterJobs(page, this.enteredLocations, this.enteredKeywords, this.experience, this.selectedCategory);
+    this.jobs = this.jobService.filterJobs(page,
+      this.enteredLocations,
+      this.enteredKeywords,
+      this.experience,
+      this.selectedCategory,
+      this.selectedCompany);
+
     this.jobs.then(jobs => this.totalItems = jobs._meta.total);
   }
 
