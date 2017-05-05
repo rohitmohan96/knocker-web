@@ -5,7 +5,7 @@
     <div class="media">
       <div class="media-left">
         <img class="media-object imgsize"
-             [src]="getImage(job.url)" alt="company">
+             [src]="imageMap[job.company]" alt="company">
       </div>
       <div class="media-body">
         <span *ngIf="job.crawl_id < crawlId" class="label label-danger pull-right">Outdated</span>

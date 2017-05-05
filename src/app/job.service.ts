@@ -9,7 +9,7 @@ export class JobService {
   constructor(private http: Http) {
   }
 
-  filterJobs(page: number = 1, locations?: string[], keywords?: string[], experience?: number, category?: string) {
+  filterJobs(page: number = 1, locations?: string[], keywords?: string[], experience?: number, category?: string, company?: string) {
     let where = {};
     let projection;
     let sort;
@@ -43,6 +43,9 @@ export class JobService {
       where['categories'] = category;
     }
 
+    if (company) {
+      where['company'] = company;
+    }
 
     return this.http
       .get(this.url + '/Jobs', {
