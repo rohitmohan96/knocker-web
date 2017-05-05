@@ -1,11 +1,12 @@
+
 <nav class="navbar navbar-static-top navbar-inverse">
   <div class="navbar-header">
     <div class="navbar-brand chocolatetext">Knocker</div>
   </div>
   <div class="container">
     <ul class="nav navbar-nav">
-      <li><a routerLink="home">Home</a></li>
-      <li><a routerLink="jobSearch">Job Search</a></li>
+      <li><a class ="glyphicon glyphicon-home" routerLink="home"> Home</a></li>
+      <li><a class="glyphicon glyphicon-search" routerLink="jobSearch"> JobSearch</a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
       <li class="navbar-text" *ngIf="user">
@@ -21,5 +22,4 @@
     </ul>
   </div>
 </nav>
-
 <router-outlet></router-outlet>
