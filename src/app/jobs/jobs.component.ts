@@ -1,4 +1,5 @@
 import {Component, Input, OnInit} from "@angular/core";
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-jobs',
@@ -34,7 +35,7 @@ export class JobsComponent implements OnInit {
     'C#': 'black'
   };
 
-  constructor() {
+  constructor(private router: Router) {
   }
 
   ngOnInit() {
@@ -47,5 +48,8 @@ export class JobsComponent implements OnInit {
       }
     }
     return '';
+  }
+  gotoJob(id) {
+    this.router.navigate(['/job', id]);
   }
 }

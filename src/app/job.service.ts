@@ -62,4 +62,10 @@ export class JobService {
       .toPromise()
       .then(res => res.json()._items[0].crawl_id);
   }
+
+  getJob(jobId) {
+    return this.http.get(this.url + '/Jobs' +'/'+ jobId)
+      .toPromise()
+      .then(res => res.json());
+  }
 }
