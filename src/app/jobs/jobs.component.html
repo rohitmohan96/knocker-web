@@ -9,7 +9,7 @@
       </div>
       <div class="media-body">
         <span *ngIf="job.crawl_id < crawlId" class="label label-danger pull-right">Outdated</span>
-        <a (click)="gotoJob(job._id)">
+        <a (click)="gotoJob(job._id)" onmouseover="" style = "cursor: pointer;">
           <h4 class="media-heading">{{job.title}}</h4>
         </a>
         <p><span class="glyphicon glyphicon-map-marker"></span> {{job.location}}</p>
