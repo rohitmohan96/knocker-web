@@ -42,15 +42,17 @@
              class="form-control typeaheadstyle">
     </div>
 
-    <label>Company: </label>
-    <div class="btn-group" dropdown>
-      <button dropdownToggle type="button" class="btn btn-default dropdown-toggle">
-        {{selectedCompany}} <span class="caret"></span>
-      </button>
-      <ul *dropdownMenu class="dropdown-menu" role="menu">
-        <li role="menuitem" *ngFor="let comp of companies"><a class="dropdown-item" (click)="selectCompany(comp)">{{comp}}</a>
-        </li>
-      </ul>
+    <div class="form-group">
+      <label>Company: </label>
+      <div class="btn-group" dropdown>
+        <button dropdownToggle type="button" class="btn btn-default dropdown-toggle">
+          {{selectedCompany}} <span class="caret"></span>
+        </button>
+        <ul *dropdownMenu class="dropdown-menu" role="menu">
+          <li role="menuitem" *ngFor="let comp of companies"><a class="dropdown-item" (click)="selectCompany(comp)">{{comp}}</a>
+          </li>
+        </ul>
+      </div>
     </div>
 
     <div>
