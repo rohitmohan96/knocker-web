@@ -74,14 +74,17 @@ export class FilterComponent implements OnInit {
   }
 
   filterJobs(page: number = 1) {
-    this.jobs = this.jobService.filterJobs(page,
-      this.enteredLocations,
-      this.enteredKeywords,
-      this.experience,
-      this.selectedCategory,
-      this.selectedCompany);
+    this.jobs = this.jobService
+      .filterJobs(
+        page,
+        this.enteredLocations,
+        this.enteredKeywords,
+        this.experience,
+        this.selectedCategory,
+        this.selectedCompany);
 
-    this.jobs.then(jobs => this.totalItems = jobs._meta.total);
+    this.jobs
+      .then(jobs => this.totalItems = jobs._meta.total);
   }
 
   newKeyword() {

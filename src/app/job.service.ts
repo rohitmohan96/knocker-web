@@ -67,7 +67,7 @@ export class JobService {
   }
 
   getJob(jobId) {
-    return this.http.get(this.url + '/Jobs' +'/'+ jobId)
+    return this.http.get(this.url + '/Jobs' + '/' + jobId)
       .toPromise()
       .then(res => res.json());
   }
