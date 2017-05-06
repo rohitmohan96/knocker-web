@@ -16,7 +16,9 @@
   <div class="col-md-3">
     <p><a class="btn btn-success btn-lg" [href]="job.url">Click to apply</a></p>
     <p>
-      <button class="btn btn-info btn-lg"><span class="glyphicon glyphicon-pushpin"></span> Add to wishlist</button>
+      <button class="btn btn-info btn-lg" *ngIf="user" (click)="pinJob(this.user.uid,job._id)"><span
+        class="glyphicon glyphicon-pushpin"></span> Add to wishlist
+      </button>
     </p>
   </div>
 </div>

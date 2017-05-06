@@ -1,6 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {JobService} from '../job.service';
+import * as firebase from 'firebase/app';
+import {AngularFireAuth} from 'angularfire2/auth';
 
 @Component({
   selector: 'app-job-details',
@@ -9,6 +11,9 @@ import {JobService} from '../job.service';
   providers: [JobService]
 })
 export class JobDetailsComponent implements OnInit {
+
+  user: firebase.User;
+
 
   job: Promise<any>;
 
@@ -33,13 +38,18 @@ export class JobDetailsComponent implements OnInit {
     'Cisco Systems, Inc.': 'https://upload.wikimedia.org/wikipedia/commons/6/64/Cisco_logo.svg'
   };
 
-  constructor(private route: ActivatedRoute, private jobService: JobService) {
+  constructor(private afAuth: AngularFireAuth, private route: ActivatedRoute, private jobService: JobService) {
   }
 
-  ngOnInit() {
-    const jobId = this.route.snapshot.params['id'];
 
+  ngOnInit() {
+
+    const jobId = this.route.snapshot.params['id'];
+    this.afAuth.authState.subscribe(user => this.user = user);
     this.job = this.jobService.getJob(jobId);
+  }
+  pinJob(uid, jobId) {
+    this.jobService.pinJob(uid, jobId);
   }
 
 }
