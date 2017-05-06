@@ -71,4 +71,28 @@ export class JobService {
       .toPromise()
       .then(res => res.json());
   }
+
+  pinJob(uid, jobId): Promise<any> {
+    return this.http
+      .post(this.url + '/pinnedJobs', {uid: uid, job: jobId})
+      .toPromise();
+  }
+
+  getPinnedJobs(uid): Promise<any> {
+    const where = {uid: uid};
+
+    return this.http
+      .get(this.url + '/pinnedJobs', {
+        search: {
+          where: where,
+          embedded: {job: 1}
+        }
+      })
+      .toPromise()
+      .then(res => {
+        const items = res.json();
+        items._items = items._items.map(item => item.job);
+        return items;
+      });
+  }
 }
