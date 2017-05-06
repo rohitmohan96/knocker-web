@@ -1,23 +1,4 @@
 <div class="container" *ngIf="user">
-  <!--<ul class="list-group col-md-11">-->
-    <!--<li class="list-group-item" *ngFor="let job of (jobs | async)?._items">-->
-      <!--<div class="media">-->
-        <!--<div class="media-left">-->
-          <!--<img class="media-object imgsize"-->
-               <!--src="https://www2.deloitte.com/content/dam/Deloitte/uk/Images/promo_images/Campaign/sport/uk-deloitte-sbg-football-us-fans-promo.jpg">-->
-        <!--</div>-->
-        <!--<div class="media-body">-->
-          <!--<h2>Job Title</h2>-->
-          <!--<p><span class="glyphicon glyphicon-map-marker"></span></p>-->
-          <!--<p><span class="glyphicon glyphicon-briefcase"></span> + years</p>-->
-          <!--<p><span *ngFor="let keyword of job.keywords"><span class="label label-primary"-->
-                                                              <!--[style.background]="map[keyword]">{{keyword}}</span> </span>-->
-          <!--</p>-->
-        <!--</div>-->
-      <!--</div>-->
-    <!--</li>-->
-  <!--</ul>-->
-  <app-jobs>
-
+  <app-jobs [jobs]="jobs" [crawlId]="crawlId">
   </app-jobs>
 </div>
