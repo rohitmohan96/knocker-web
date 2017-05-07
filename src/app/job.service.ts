@@ -78,10 +78,30 @@ export class JobService {
       .toPromise();
   }
 
-  unpinJob(uid, jobId) {
+  unpinJob(pinId) {
     return this.http
-      .delete(this.url + '/pinnedJobs')
+      .delete(this.url + '/pinnedJobs/' + pinId)
       .toPromise();
+  }
+
+  getPinStatus(uid, jobId): Promise<number | boolean> {
+    return this.http
+      .get(this.url + '/pinnedJobs', {
+        search: {
+          where: {
+            uid: uid,
+            job: jobId
+          }
+        }
+      })
+      .toPromise()
+      .then(res => {
+        if (res.json()._items[0]) {
+          return res.json()._items[0]._id;
+        } else {
+          return false;
+        }
+      });
   }
 
   getPinnedJobs(uid): Promise<any> {

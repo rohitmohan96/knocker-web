@@ -26,6 +26,8 @@ export class HomeComponent implements OnInit {
       this.uid = user.uid;
       this.jobs = this.jobService.getPinnedJobs(this.uid);
 
+      this.jobs.then(jobs => console.log(jobs));
+
       this.jobService
         .getCrawlId()
         .then((crawlId) => this.crawlId = crawlId);
