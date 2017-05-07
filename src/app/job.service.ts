@@ -78,6 +78,12 @@ export class JobService {
       .toPromise();
   }
 
+  unpinJob(uid, jobId) {
+    return this.http
+      .delete(this.url + '/pinnedJobs')
+      .toPromise();
+  }
+
   getPinnedJobs(uid): Promise<any> {
     const where = {uid: uid};
 

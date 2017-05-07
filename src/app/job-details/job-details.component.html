@@ -1,3 +1,4 @@
+<img class="banner" src="https://static.naukimg.com/s/4/103/i/hpBackImg_v1.jpg" />
 <div class="container" *ngIf="job | async; let job;">
   <div class="jumbotron col-md-9">
     <div class="media-left media-middle">
@@ -16,8 +17,11 @@
   <div class="col-md-3">
     <p><a class="btn btn-success btn-lg" [href]="job.url">Click to apply</a></p>
     <p>
-      <button class="btn btn-info btn-lg" *ngIf="user" (click)="pinJob(this.user.uid,job._id)"><span
+      <button class="btn btn-info btn-lg" *ngIf="user && !pinned" (click)="pinJob(this.user.uid,job._id)"><span
         class="glyphicon glyphicon-pushpin"></span> Add to wishlist
+      </button>
+      <button class="btn btn-danger btn-lg" *ngIf="user && pinned" (click)="unpinJob(this.user.uid,job._id)"><span
+        class="glyphicon glyphicon-pushpin"></span> Remove from wishlist
       </button>
     </p>
   </div>
