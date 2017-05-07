@@ -23,14 +23,17 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.afAuth.authState.subscribe(user => {
       this.user = user;
-      this.uid = user.uid;
-      this.jobs = this.jobService.getPinnedJobs(this.uid);
 
-      this.jobs.then(jobs => console.log(jobs));
+      if (user) {
+        this.uid = user.uid;
+        this.jobs = this.jobService.getPinnedJobs(this.uid);
 
-      this.jobService
-        .getCrawlId()
-        .then((crawlId) => this.crawlId = crawlId);
+        this.jobs.then(jobs => console.log(jobs));
+
+        this.jobService
+          .getCrawlId()
+          .then((crawlId) => this.crawlId = crawlId);
+      }
     });
   }
 
