@@ -17,10 +17,10 @@
   <div class="col-md-3">
     <p><a class="btn btn-success btn-lg" [href]="job.url">Click to apply</a></p>
     <p>
-      <button class="btn btn-info btn-lg" *ngIf="user && !pinned" (click)="pinJob(this.user.uid,job._id)"><span
+      <button class="btn btn-info btn-lg" *ngIf="user && !pinned" (click)="pinJob(user.uid, job._id)"><span
         class="glyphicon glyphicon-pushpin"></span> Add to wishlist
       </button>
-      <button class="btn btn-danger btn-lg" *ngIf="user && pinned" (click)="unpinJob(this.user.uid,job._id)"><span
+      <button class="btn btn-danger btn-lg" *ngIf="user && pinned" (click)="unpinJob(pinId)"><span
         class="glyphicon glyphicon-pushpin"></span> Remove from wishlist
       </button>
     </p>

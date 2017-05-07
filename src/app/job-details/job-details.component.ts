@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {JobService} from '../job.service';
 import * as firebase from 'firebase/app';
 import {AngularFireAuth} from 'angularfire2/auth';
@@ -11,6 +11,7 @@ import {AngularFireAuth} from 'angularfire2/auth';
   providers: [JobService]
 })
 export class JobDetailsComponent implements OnInit {
+  pinId: number;
 
   user: firebase.User;
 
@@ -41,14 +42,29 @@ export class JobDetailsComponent implements OnInit {
 
   constructor(private afAuth: AngularFireAuth,
               private route: ActivatedRoute,
-              private jobService: JobService) {
+              private jobService: JobService,
+              private router: Router) {
   }
 
 
   ngOnInit() {
     const jobId = this.route.snapshot.params['id'];
-    this.afAuth.authState.subscribe(user => this.user = user);
-    this.job = this.jobService.getJob(jobId);
+    this.afAuth.authState.subscribe(user => {
+      this.user = user;
+
+      this.job = this.jobService.getJob(jobId);
+
+      this.job
+        .then(job => this.jobService.getPinStatus(this.user.uid, job._id))
+        .then(value => {
+          if (typeof value === 'boolean') {
+            this.pinned = false;
+          } else {
+            this.pinned = true;
+            this.pinId = value;
+          }
+        });
+    });
   }
 
   pinJob(uid, jobId) {
@@ -56,8 +72,8 @@ export class JobDetailsComponent implements OnInit {
     this.jobService.pinJob(uid, jobId);
   }
 
-  unpinJob(uid, jobId) {
+  unpinJob(pinId) {
     this.pinned = false;
-    this.jobService.unpinJob(uid, jobId);
+    this.jobService.unpinJob(pinId);
   }
 }
