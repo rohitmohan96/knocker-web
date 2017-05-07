@@ -54,16 +54,18 @@ export class JobDetailsComponent implements OnInit {
 
       this.job = this.jobService.getJob(jobId);
 
-      this.job
-        .then(job => this.jobService.getPinStatus(this.user.uid, job._id))
-        .then(value => {
-          if (typeof value === 'boolean') {
-            this.pinned = false;
-          } else {
-            this.pinned = true;
-            this.pinId = value;
-          }
-        });
+      if (user) {
+        this.job
+          .then(job => this.jobService.getPinStatus(this.user.uid, job._id))
+          .then(value => {
+            if (typeof value === 'boolean') {
+              this.pinned = false;
+            } else {
+              this.pinned = true;
+              this.pinId = value;
+            }
+          });
+      }
     });
   }
 
