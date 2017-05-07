@@ -37,4 +37,7 @@ export class HomeComponent implements OnInit {
     });
   }
 
+  login() {
+    this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
+  }
 }
