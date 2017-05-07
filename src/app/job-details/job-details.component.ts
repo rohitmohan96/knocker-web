@@ -14,6 +14,7 @@ export class JobDetailsComponent implements OnInit {
 
   user: firebase.User;
 
+  pinned: boolean;
 
   job: Promise<any>;
 
@@ -38,18 +39,25 @@ export class JobDetailsComponent implements OnInit {
     'Cisco Systems, Inc.': 'https://upload.wikimedia.org/wikipedia/commons/6/64/Cisco_logo.svg'
   };
 
-  constructor(private afAuth: AngularFireAuth, private route: ActivatedRoute, private jobService: JobService) {
+  constructor(private afAuth: AngularFireAuth,
+              private route: ActivatedRoute,
+              private jobService: JobService) {
   }
 
 
   ngOnInit() {
-
     const jobId = this.route.snapshot.params['id'];
     this.afAuth.authState.subscribe(user => this.user = user);
     this.job = this.jobService.getJob(jobId);
   }
+
   pinJob(uid, jobId) {
+    this.pinned = true;
     this.jobService.pinJob(uid, jobId);
   }
 
+  unpinJob(uid, jobId) {
+    this.pinned = false;
+    this.jobService.unpinJob(uid, jobId);
+  }
 }
