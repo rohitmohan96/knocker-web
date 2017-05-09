@@ -1,3 +1,24 @@
-<h1>
-  {{title}}
-</h1>
+<nav class="navbar navbar-static-top navbar-inverse">
+  <div class="navbar-header">
+    <div class="navbar-brand chocolatetext">Knocker</div>
+  </div>
+  <div class="container">
+    <ul class="nav navbar-nav">
+      <li><a routerLink="home"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+      <li><a routerLink="jobSearch"><span class="glyphicon glyphicon-search"></span> Job Search</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li class="navbar-text" *ngIf="user">
+        <img [src]="user.photoURL" class="img-circle img-size"/>
+        {{user.displayName}}
+      </li>
+      <li>
+        <button type="button" class="btn btn-chocolate navbar-btn" (click)="login()" *ngIf="!user">Sign in
+        </button>
+        <button type="button" class="btn btn-chocolate navbar-btn" (click)="logout()" *ngIf="user">Sign Out
+        </button>
+      </li>
+    </ul>
+  </div>
+</nav>
+<router-outlet></router-outlet>

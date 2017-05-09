@@ -1,0 +1,14 @@
+.imgsize {
+  width: 250px;
+  height: auto;
+}
+
+.banner {
+  margin-top: -20px;
+  width: 100%;
+  height: 300px;
+}
+
+.container {
+  margin-top: -150px;
+}

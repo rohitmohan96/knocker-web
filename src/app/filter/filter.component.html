@@ -1,0 +1,79 @@
+<div class="container">
+
+  <div class="col-md-3 fixed-filter">
+    <h2>Filter</h2>
+    <label>Category: </label>
+    <div class="btn-group" dropdown>
+      <button dropdownToggle type="button" class="btn btn-default dropdown-toggle">
+        {{selectedCategory}} <span class="caret"></span>
+      </button>
+      <ul *dropdownMenu class="dropdown-menu" role="menu">
+        <li role="menuitem" *ngFor="let cat of categories"><a class="dropdown-item" (click)="selectCategory(cat)">{{cat}}</a>
+        </li>
+      </ul>
+    </div>
+    <div>
+      <input [(ngModel)]="selected"
+             [typeahead]="keywords"
+             placeholder="Enter Keyword"
+             class="form-control typeaheadstyle"
+             (typeaheadOnSelect)="newKeyword()"
+      />
+    </div>
+
+    <span *ngFor="let key of enteredKeywords; let i = index;">
+      <span class="label label-primary">{{key}} <span
+        class="glyphicon glyphicon-remove" (click)="removeKeyword(i)"></span></span>
+    </span>
+
+    <div>
+      <input [(ngModel)]="location"
+             placeholder="Enter Location"
+             class="form-control typeaheadstyle" (keyup.enter)="newLocation()">
+    </div>
+
+    <div *ngFor="let loc of enteredLocations; let i = index;">
+      <span class="label label-success">{{loc}} <span class="glyphicon glyphicon-remove"
+                                                      (click)="removeLocation(i)"></span></span>
+    </div>
+    <div>
+      <input [(ngModel)]="experience" type="number"
+             placeholder="Experience in Years"
+             class="form-control typeaheadstyle">
+    </div>
+
+    <div class="form-group">
+      <label>Company: </label>
+      <div class="btn-group" dropdown>
+        <button dropdownToggle type="button" class="btn btn-default dropdown-toggle">
+          {{selectedCompany}} <span class="caret"></span>
+        </button>
+        <ul *dropdownMenu class="dropdown-menu" role="menu">
+          <li role="menuitem" *ngFor="let comp of companies"><a class="dropdown-item" onmouseover=""
+                                                                style="cursor: pointer;" (click)="selectCompany(comp)">{{comp}}</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div>
+      <button class=" btn btn-primary btn-chocolate" (click)="filter()">Filter</button>
+
+    </div>
+  </div>
+
+  <div class="col-md-9">
+    <div class="panel panel-primary">
+      <div class="panel-heading">Jobs</div>
+      <div class="panel-body">
+        <em>Total no. of jobs: {{totalItems}}</em>
+      </div>
+
+      <app-jobs [jobs]="jobs" [crawlId]="crawlId"></app-jobs>
+    </div>
+
+    <pagination [totalItems]="totalItems" itemsPerPage="25" [(ngModel)]="currentPage"
+                [maxSize]="maxSize" class="pull-right pagination-sm"
+                [boundaryLinks]="true" (pageChanged)="filterJobs($event.page)"></pagination>
+  </div>
+</div>

@@ -1,0 +1,25 @@
+<ul class="list-group">
+
+  <!-- list object-->
+  <li class="list-group-item " *ngFor="let job of (jobs | async)?._items">
+    <div class="media">
+      <div class="media-left">
+        <img class="media-object imgsize"
+             [src]="imageMap[job.company]" alt="company">
+      </div>
+      <div class="media-body">
+        <span *ngIf="job.crawl_id < crawlId" class="label label-danger pull-right">Outdated</span>
+        <a (click)="gotoJob(job._id)" onmouseover="" style = "cursor: pointer;">
+          <h4 class="media-heading">{{job.title}}</h4>
+        </a>
+        <p><span class="glyphicon glyphicon-map-marker"></span> {{job.location}}</p>
+        <p><span class="glyphicon glyphicon-briefcase"></span> {{job.experience}}+ years</p>
+
+        <span *ngFor="let keyword of job.keywords">
+                <span class="label label-primary"
+                      [style.background]="map[keyword]">{{keyword}}</span>
+        </span>
+      </div>
+    </div>
+  </li>
+</ul>

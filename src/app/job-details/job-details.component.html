@@ -1,0 +1,29 @@
+<img class="banner" src="/assets/long_banner.jpg" />
+<div class="container" *ngIf="job | async; let job;">
+  <div class="jumbotron col-md-9">
+    <div class="media-left media-middle">
+      <img class="media-object imgsize"
+           [src]="imageMap[job.company]" alt="company">
+    </div>
+    <div class="media-body">
+      <h2>{{job.title}}</h2>
+      <p><span class="glyphicon glyphicon-map-marker"></span> {{job.location}}</p>
+      <p><span class="glyphicon glyphicon-briefcase"></span> {{job.experience}}+ years</p>
+
+      <p><span *ngFor="let keyword of job.keywords"><span class="label label-primary" [style.background]="map[keyword]">{{keyword}}</span> </span>
+      </p>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <p><a class="btn btn-success btn-lg" [href]="job.url">Click to apply</a></p>
+    <p>
+      <button class="btn btn-info btn-lg" *ngIf="user && !pinned" (click)="pinJob(user.uid, job._id)"><span
+        class="glyphicon glyphicon-pushpin"></span> Add to wishlist
+      </button>
+      <button class="btn btn-danger btn-lg" *ngIf="user && pinned" (click)="unpinJob(pinId)"><span
+        class="glyphicon glyphicon-pushpin"></span> Remove from wishlist
+      </button>
+    </p>
+  </div>
+</div>
+
