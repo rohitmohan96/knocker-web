@@ -16,12 +16,12 @@ import { JobDetailsComponent } from './job-details/job-details.component';
 import {AngularFireAuthModule} from 'angularfire2/auth';
 
 const config = {
-  apiKey: ***REMOVED***,
-  authDomain: ***REMOVED***,
-  databaseURL: ***REMOVED***,
-  projectId: ***REMOVED***,
-  storageBucket: ***REMOVED***,
-  messagingSenderId: ***REMOVED***
+  apiKey: **REMOVED**,
+  authDomain: **REMOVED**,
+  databaseURL: **REMOVED**,
+  projectId: **REMOVED**,
+  storageBucket: **REMOVED**,
+  messagingSenderId: **REMOVED**
 };
 
 const appRoutes: Route[] = [
